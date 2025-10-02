@@ -1,25 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Happy Birthday, Ria!</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     /* Import Google Fonts */
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
 
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #ffdde1, #ee9ca7);
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
+    /* Page */
+    html, body {
+      height: 100%;
     }
 
+    body {
+      margin: 0;
+      padding: 60px 16px;                     /* top spacing so content isn't glued to top */
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+      background-attachment: fixed;           /* background stays fixed while scrolling */
+      min-height: 100vh;
+
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;                /* allow vertical scrolling instead of centering */
+      
+      overflow-x: hidden;                     /* hide horizontal overflow */
+      overflow-y: auto;                       /* enable vertical scrolling */
+      -webkit-overflow-scrolling: touch;      /* smooth scrolling on iOS */
+      
+      scrollbar-width: thin;
+      scrollbar-color: rgba(0,0,0,0.15) rgba(255,255,255,0.2);
+    }
+
+    /* Nice custom scrollbar for WebKit (Chrome/Safari/Edge) */
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-track { background: rgba(255,255,255,0.2); border-radius: 10px; }
+    ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.22); }
+
+    /* Card */
     .card {
       background: #fff;
       width: 90%;
@@ -29,14 +49,15 @@
       box-shadow: 0 8px 25px rgba(0,0,0,0.15);
       text-align: center;
       position: relative;
-      animation: fadeIn 2s ease;
+      animation: fadeIn 0.9s ease;
+      margin-bottom: 120px;                   /* room so balloons don't overlap bottom content */
     }
 
     .card h1 {
       font-size: 2.5rem;
       margin-bottom: 20px;
       color: #ff4081;
-      animation: pop 1s ease;
+      animation: pop 0.9s ease;
       word-break: break-word;
     }
 
@@ -55,7 +76,7 @@
       text-align: right;
     }
 
-    /* Balloons */
+    /* Balloons (appended to body in JS) */
     .balloon {
       position: absolute;
       bottom: -150px;
@@ -63,8 +84,11 @@
       height: 80px;
       background: radial-gradient(circle at 30% 30%, #fff, var(--color));
       border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-      animation: floatUp 10s linear infinite;
-      opacity: 0.9;
+      animation: floatUp 12s linear infinite;
+      opacity: 0.95;
+      pointer-events: none;                   /* don't block clicks/scroll */
+      transform-origin: center;
+      will-change: transform, opacity;
     }
 
     .balloon::after {
@@ -80,78 +104,80 @@
 
     /* Animations */
     @keyframes floatUp {
-      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-      100% { transform: translateY(-110vh) rotate(15deg); opacity: 0; }
+      0%   { transform: translateY(0) rotate(0deg); opacity: 1; }
+      70%  { opacity: 0.9; }
+      100% { transform: translateY(-130vh) rotate(18deg); opacity: 0; }
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.95); }
-      to { opacity: 1; transform: scale(1); }
+      from { opacity: 0; transform: translateY(8px) scale(.99); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
     }
 
     @keyframes pop {
-      0% { transform: scale(0.5); opacity: 0; }
-      100% { transform: scale(1); opacity: 1; }
+      0% { transform: scale(0.6); opacity: 0; }
+      80% { transform: scale(1.03); opacity: 1; }
+      100% { transform: scale(1); }
     }
 
-    /* Responsive Design */
+    /* Responsive */
     @media (max-width: 768px) {
-      .card {
-        padding: 25px;
-      }
-      .card h1 {
-        font-size: 2rem;
-      }
-      .card p {
-        font-size: 0.95rem;
-        line-height: 1.6;
-      }
+      body { padding: 40px 12px; }
+      .card { padding: 25px; }
+      .card h1 { font-size: 2rem; }
+      .card p { font-size: 0.95rem; line-height: 1.6; }
     }
 
     @media (max-width: 480px) {
-      .card {
-        padding: 20px;
-        border-radius: 15px;
-      }
-      .card h1 {
-        font-size: 1.7rem;
-      }
-      .card p {
-        font-size: 0.9rem;
-        line-height: 1.5;
-      }
-      .signature {
-        font-size: 0.9rem;
-      }
-      .balloon {
-        width: 40px;
-        height: 60px;
-      }
+      body { padding: 30px 10px; }
+      .card { padding: 20px; border-radius: 15px; }
+      .card h1 { font-size: 1.7rem; }
+      .card p { font-size: 0.9rem; line-height: 1.5; }
+      .signature { font-size: 0.9rem; }
+      .balloon { width: 40px; height: 60px; }
     }
   </style>
 </head>
 <body>
 
-  <div class="card">
+  <div class="card" id="card">
     <h1>🎉 Happy Birthday, Ria! 🎂</h1>
+
     <p>Sana sa special day mo, maramdaman mo kung gaano ka kaimportante, kaganda, at kahalaga. Hindi lang sa family at friends mo, kundi pati na rin sa mga taong nakapaligid sayo kahit sa simpleng paraan lang.</p>
+
     <p>I wish you more blessings, good health, at endless happiness. Sana lahat ng dreams mo isa-isa nang matupad, at kahit may dumating na challenges sa buhay, lagi kang maging matatag at positive kasi alam ko kaya mo yan.</p>
+
     <p>Thank you kasi nakilala kita sobrang gaan ng vibe mo at ang sarap mo kausap. Kahit simpleng chat lang, nakakagaan ng mood at parang nababawasan yung stress ng araw. Alam ko marami pang good memories na darating sayo, at sana itong birthday mo maging super memorable at puno ng good vibes.</p>
+
     <p>Enjoy your day to the fullest! Celebrate with the people na mahal ka at nagpapasaya sayo, at huwag mong kalimutan na deserve mo lahat ng love, care, at happiness sa mundo.</p>
+
     <p>I'm so proud of you, Ria! Sobrang nakakabilib ka sa lahat ng bagay na kaya mong gawin at kung paano mo hinahandle yung mga challenges sa buhay. Sorry kung wala akong physical gift ngayon, pero kung pwede lang, igi-gift ko na lang sarili ko sayo AHAHA (pero seryoso, lagi akong andito to support you at pasayahin ka in my own simple ways).</p>
+
     <p>Again, happiest birthday sa’yo, Ria! Always remember na nandyan si God para sa lahat ng wishes mo at syempre, andito rin ako bilang isa sa mga taong genuinely masaya para sa’yo.</p>
+
     <div class="signature">– Ceejay (Yung wish mo kay God AHAHA)</div>
   </div>
 
   <script>
     // Generate floating balloons
     const colors = ['#ff4081', '#ffeb3b', '#4caf50', '#2196f3', '#9c27b0'];
-    for (let i = 0; i < 15; i++) {
+    const balloonCount = 15;
+
+    for (let i = 0; i < balloonCount; i++) {
       const balloon = document.createElement('div');
-      balloon.classList.add('balloon');
+      balloon.className = 'balloon';
       balloon.style.setProperty('--color', colors[Math.floor(Math.random() * colors.length)]);
-      balloon.style.left = Math.random() * 100 + 'vw';
-      balloon.style.animationDuration = (8 + Math.random() * 5) + 's';
+      
+      // Random horizontal start (allow starting slightly off-screen to look natural)
+      const left = Math.random() * 120 - 10; // -10vw to 110vw
+      balloon.style.left = left + 'vw';
+
+      // Random size/animation timing for variety
+      const scale = 0.8 + Math.random() * 0.7; 
+      balloon.style.transform = `scale(${scale})`;
+      balloon.style.animationDuration = (9 + Math.random() * 8) + 's';
+      balloon.style.opacity = 0.85 + Math.random() * 0.15;
+
       document.body.appendChild(balloon);
     }
   </script>
