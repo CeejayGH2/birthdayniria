@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Happy Birthday, Ria!</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* Import Google Fonts */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .card {
+      background: #fff;
+      width: 90%;
+      max-width: 700px;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+      text-align: center;
+      position: relative;
+      animation: fadeIn 2s ease;
+    }
+
+    .card h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      color: #ff4081;
+      animation: pop 1s ease;
+      word-break: break-word;
+    }
+
+    .card p {
+      font-size: 1rem;
+      color: #444;
+      line-height: 1.8;
+      text-align: justify;
+      margin-bottom: 15px;
+    }
+
+    .signature {
+      margin-top: 20px;
+      font-weight: bold;
+      color: #333;
+      text-align: right;
+    }
+
+    /* Balloons */
+    .balloon {
+      position: absolute;
+      bottom: -150px;
+      width: 60px;
+      height: 80px;
+      background: radial-gradient(circle at 30% 30%, #fff, var(--color));
+      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+      animation: floatUp 10s linear infinite;
+      opacity: 0.9;
+    }
+
+    .balloon::after {
+      content: '';
+      position: absolute;
+      bottom: -30px;
+      left: 50%;
+      width: 2px;
+      height: 30px;
+      background: #555;
+      transform: translateX(-50%);
+    }
+
+    /* Animations */
+    @keyframes floatUp {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(-110vh) rotate(15deg); opacity: 0; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes pop {
+      0% { transform: scale(0.5); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .card {
+        padding: 25px;
+      }
+      .card h1 {
+        font-size: 2rem;
+      }
+      .card p {
+        font-size: 0.95rem;
+        line-height: 1.6;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .card {
+        padding: 20px;
+        border-radius: 15px;
+      }
+      .card h1 {
+        font-size: 1.7rem;
+      }
+      .card p {
+        font-size: 0.9rem;
+        line-height: 1.5;
+      }
+      .signature {
+        font-size: 0.9rem;
+      }
+      .balloon {
+        width: 40px;
+        height: 60px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h1>🎉 Happy Birthday, Ria! 🎂</h1>
+    <p>Sana sa special day mo, maramdaman mo kung gaano ka kaimportante, kaganda, at kahalaga. Hindi lang sa family at friends mo, kundi pati na rin sa mga taong nakapaligid sayo kahit sa simpleng paraan lang.</p>
+    <p>I wish you more blessings, good health, at endless happiness. Sana lahat ng dreams mo isa-isa nang matupad, at kahit may dumating na challenges sa buhay, lagi kang maging matatag at positive kasi alam ko kaya mo yan.</p>
+    <p>Thank you kasi nakilala kita sobrang gaan ng vibe mo at ang sarap mo kausap. Kahit simpleng chat lang, nakakagaan ng mood at parang nababawasan yung stress ng araw. Alam ko marami pang good memories na darating sayo, at sana itong birthday mo maging super memorable at puno ng good vibes.</p>
+    <p>Enjoy your day to the fullest! Celebrate with the people na mahal ka at nagpapasaya sayo, at huwag mong kalimutan na deserve mo lahat ng love, care, at happiness sa mundo.</p>
+    <p>I'm so proud of you, Ria! Sobrang nakakabilib ka sa lahat ng bagay na kaya mong gawin at kung paano mo hinahandle yung mga challenges sa buhay. Sorry kung wala akong physical gift ngayon, pero kung pwede lang, igi-gift ko na lang sarili ko sayo AHAHA (pero seryoso, lagi akong andito to support you at pasayahin ka in my own simple ways).</p>
+    <p>Again, happiest birthday sa’yo, Ria! Always remember na nandyan si God para sa lahat ng wishes mo at syempre, andito rin ako bilang isa sa mga taong genuinely masaya para sa’yo.</p>
+    <div class="signature">– Ceejay (Yung wish mo kay God AHAHA)</div>
+  </div>
+
+  <script>
+    // Generate floating balloons
+    const colors = ['#ff4081', '#ffeb3b', '#4caf50', '#2196f3', '#9c27b0'];
+    for (let i = 0; i < 15; i++) {
+      const balloon = document.createElement('div');
+      balloon.classList.add('balloon');
+      balloon.style.setProperty('--color', colors[Math.floor(Math.random() * colors.length)]);
+      balloon.style.left = Math.random() * 100 + 'vw';
+      balloon.style.animationDuration = (8 + Math.random() * 5) + 's';
+      document.body.appendChild(balloon);
+    }
+  </script>
+
+</body>
+</html>
